@@ -1,13 +1,13 @@
 import { Injectable, Signal, computed } from "@angular/core";
 import { Product } from "./product.model";
-import { StaticDatasource } from "./static.datasource";
+import { StaticDataSource } from "./static.datasource";
 
 @Injectable()
 export class ProductRepository{
     products: Signal<Product[]>
     categories: Signal<string[]>
 
-    public constructor(private datasource: StaticDatasource){
+    public constructor(private datasource: StaticDataSource){
         this.products = this.datasource.products;
         this.categories = computed(() => {
             return this.products()

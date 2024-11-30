@@ -2,7 +2,7 @@ import { Injectable, Signal, signal } from "@angular/core";
 import { Product } from "./product.model";
 
 @Injectable()
-export class StaticDatasource {
+export class StaticDataSource {
     private data: Product[] = [
         new Product(1, "Product 1", "Category 1", 
             "Product 1 (Category 1)", 100),
