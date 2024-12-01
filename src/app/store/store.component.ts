@@ -1,6 +1,9 @@
 import { Component, Signal, signal, computed } from "@angular/core"
+
 import { Product } from "../model/product.model"
 import { ProductRepository } from "../model/product.repository"
+import { Cart } from "../model/cart.model"
+import { Router } from "@angular/router"
 
 @Component({
     selector: "store",
@@ -16,7 +19,10 @@ export class StoreComponent {
     pagedProducts: Signal<Product[]>;
     pageNumbers: Signal<number[]>;
 
-    constructor(private repository: ProductRepository){
+    constructor(
+      private readonly repository: ProductRepository,
+      private cart: Cart,
+      private router: Router){
         this.products = computed(() => {
             if (this.selectedCategory() == undefined){
                 return this.repository.products()
@@ -33,7 +39,7 @@ export class StoreComponent {
 
         this.pagedProducts = computed(() => {
             return this.products().slice(
-                pageIndex(), 
+                pageIndex(),
                 pageIndex() + this.productsPerPage())
         })
 
@@ -47,18 +53,20 @@ export class StoreComponent {
     }
 
     changePage(newPage: number){
-       this.selectedPage.set(newPage) 
-       console.log('page', newPage)
+       this.selectedPage.set(newPage)
     }
 
-    changePageSize(newSize: Number){
+    changePageSize(newSize: number){
         this.productsPerPage.set(Number(newSize))
         this.changePage(1)
-        console.log('size', newSize)
     }
 
     changeCategory(category?: string | undefined){
         this.selectedCategory.set(category)
-        this.changePage(1)
+    }
+
+    addProductToCart(product: Product){
+      this.cart.addLine(product)
+      this.router.navigateByUrl("/cart")
     }
 }
