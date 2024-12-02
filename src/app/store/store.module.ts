@@ -9,13 +9,14 @@ import { CartDetailComponent } from "./cartDetail.component";
 import { RouterModule } from "@angular/router";
 
 @NgModule({
-    imports: [ ModelModule, FormsModule, BrowserModule, RouterModule ],
+    imports: [ModelModule, FormsModule, BrowserModule, RouterModule],
     declarations: [
-      StoreComponent,
-      CartSummaryComponent,
-      CheckoutComponent,
-      CartDetailComponent,
+        StoreComponent,
+        CartSummaryComponent,
+        CheckoutComponent,
+        CartDetailComponent,
     ],
-    exports: [StoreComponent, CheckoutComponent, CartDetailComponent]
+    exports: [StoreComponent, CheckoutComponent, CartDetailComponent],
+    providers: []
 })
-export class StoreModule {}
+export class StoreModule { }
