@@ -9,6 +9,7 @@ import { StoreComponent } from './store/store.component';
 import { CartDetailComponent } from './store/cartDetail.component';
 import { CheckoutComponent } from './store/checkout.component';
 import { StoreFirstGuard } from './storeFirst.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,14 @@ import { StoreFirstGuard } from './storeFirst.guard';
       {path: "store", component: StoreComponent},
       {path: "cart", component: CartDetailComponent, canActivate: [StoreFirstGuard]},
       {path: "checkout", component: CheckoutComponent, canActivate: [StoreFirstGuard]},
+      {
+        path: "admin", 
+        canActivate: [StoreFirstGuard],
+        loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule),
+      },
       {path: "**", redirectTo: "/store"}
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [ StoreFirstGuard ],
   bootstrap: [AppComponent]
